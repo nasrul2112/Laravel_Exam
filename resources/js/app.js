@@ -10,11 +10,12 @@ InertiaProgress.init();
 render(
     <InertiaApp
         initialPage={JSON.parse(app.dataset.page)}
-        resolveComponent={_name =>
+        resolveComponent={ name =>
             //import semua komponen dari folder pages
             import('./Pages/${name}').then(module => module.default)
      }
      
+     />,
     app 
-    />
+    
 )
