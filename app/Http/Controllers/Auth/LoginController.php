@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +41,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    //menampilkan halaman login
+    public function showLoginForm()
+    {
+        return Inertia::render('Auth/Login');
+    }
+
+    //Mengarahkan ke alaman admin
+    protected function authenticated(Request $request, $user)
+    {
+        return Redirect ::route('admin.dashboard');
+    }
+
+    //agar login dengan Username
+    public function username()
+    {
+        return 'username' ;
+    }
+
+    //costum Login
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }
